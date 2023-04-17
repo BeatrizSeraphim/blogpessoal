@@ -4,10 +4,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,11 +19,11 @@ import jakarta.validation.constraints.Size;
 @Table(name = "tb_postagens") /*CREATE TABLE tb_postagens*/
 public class Postagem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id //O Atributo é a Chave Primaria
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment
 	private Long id;
 	
-	@NotBlank(message = "O Atributo título é Obrigatório!")
+	@NotBlank(message = "O Atributo título é Obrigatório!") // Exclusivo para String
 	@Size(min = 5, max = 100, message = "O atributo título deve ter no mínimo 05 e no máximo 100 caracteres.")
 	private String titulo;
 	
@@ -28,8 +31,13 @@ public class Postagem {
 	@Size(min = 10, max = 1000, message = "O atributo texto deve ter no mínimo 10 e no máximo 1000 caracteres.")	
 	private String texto;
 	
-	@UpdateTimestamp
+	@UpdateTimestamp // atualizar data e hora toda vez que postar ou atualizar
 	private LocalDateTime data;
+	
+	/* Relacionamento */
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Tema tema;
 
 	public Long getId() {
 		return id;
@@ -62,5 +70,15 @@ public class Postagem {
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+
+	/* Criar os metodos Get e Set do objeto tema*/
 	
+	public Tema getTema() {
+		return tema;
+	}
+
+	public void setTema(Tema tema) {
+		this.tema = tema;
+	}
+			
 }
