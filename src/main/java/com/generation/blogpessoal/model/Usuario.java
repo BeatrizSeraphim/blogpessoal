@@ -42,12 +42,25 @@ package com.generation.blogpessoal.model;
 		@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.REMOVE)
 		@JsonIgnoreProperties("usuario")
 		private List<Postagem> postagem;
+		
+		/* Criar os métodos Construtores */
+		
+		public Usuario(Long id,  String nome, String usuario, String senha, String foto) {
+			this.id = id;
+			this.nome = nome;
+			this.usuario = usuario;
+			this.senha = senha;
+			this.foto = foto;
+		}
+		
+		public Usuario() { }
 
 		/* Insira os Getters and Setters */
 
 		public Long getId() {
 			return this.id;
 		}
+
 
 		public void setId(Long id) {
 			this.id = id;
