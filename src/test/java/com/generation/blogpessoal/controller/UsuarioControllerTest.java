@@ -125,7 +125,7 @@ public class UsuarioControllerTest {
 	@Test
 	@DisplayName("🤓 Deve fazer o login de um Usuário")
 	public void deveFazerLogin() {
-		Optional<Usuario> usuarioCadastrado = usuarioService.cadastrarUsuario(new Usuario(0L, 
+		usuarioService.cadastrarUsuario(new Usuario(0L, 
 				"Melinda", "melinda@email.com", "12345678", "-"));
 		
 		HttpEntity<UsuarioLogin> loginUsuario = new HttpEntity<UsuarioLogin>(new UsuarioLogin (0L, 
